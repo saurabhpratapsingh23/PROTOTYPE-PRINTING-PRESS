@@ -15,9 +15,9 @@ const App = () => {
       <Navbar />
       <main className="pt-20 space-y-28">
         <Hero />
+        <Portfolio />
         <Services />
         <Process />
-        <Portfolio />
         <Testimonials />
         <About />
         <FAQ />
