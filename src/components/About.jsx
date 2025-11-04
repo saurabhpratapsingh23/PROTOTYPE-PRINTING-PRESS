@@ -1,95 +1,96 @@
-import { useState, useEffect } from "react";
-import AnimatedSection from "./AnimatedSection";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import CountUp from "react-countup";
 
-const slides = [
+const milestones = [
   {
-    img: "https://images.unsplash.com/photo-1581092580491-e0d23cbdf1dc?auto=format&fit=crop&w=900&q=80",
-    caption: "10+ Years of Printing Excellence",
+    year: "2015",
+    title: "The Beginning",
+    description:
+      "Started as a small local print shop, focusing on traditional offset printing for small businesses and wedding cards.",
   },
   {
-    img: "https://images.unsplash.com/photo-1579547621706-1a9c79d5d8af?auto=format&fit=crop&w=900&q=80",
-    caption: "State-of-the-Art Equipment",
+    year: "2018",
+    title: "Digital Expansion",
+    description:
+      "Adopted modern digital printing technologies to deliver faster and more customized results.",
   },
   {
-    img: "https://images.unsplash.com/photo-1534237710431-e2fc408eb7a7?auto=format&fit=crop&w=900&q=80",
-    caption: "Creative & Passionate Team",
+    year: "2021",
+    title: "Nationwide Reach",
+    description:
+      "Expanded our client base across India, offering delivery and remote design support.",
+  },
+  {
+    year: "2024",
+    title: "Creative Innovation",
+    description:
+      "Launched eco-friendly printing solutions and custom packaging services for premium clients.",
   },
 ];
 
+const stats = [
+  { number: 10, suffix: "+", label: "Years of Experience" },
+  { number: 1000, suffix: "+", label: "Happy Clients" },
+  { number: 50000, suffix: "+", label: "Prints Delivered" },
+  { number: 50, suffix: "+", label: "Creative Designers & Staff" },
+];
+
 const About = () => {
-  const [current, setCurrent] = useState(0);
-
-  // Auto slide
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <AnimatedSection
+    <section
       id="about"
-      animation="fade-up"
-      className="py-20 px-6 flex flex-col lg:flex-row items-center justify-center gap-10 max-w-6xl mx-auto"
+      className="py-20 px-6 bg-gradient-to-b from-[#f7f8fc] to-[#e9ebf2] text-center"
     >
-      {/* Left - Text */}
-      <motion.div
-        className="flex-1 text-center lg:text-left"
-        initial={{ opacity: 0, x: -80 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+      {/* Header */}
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl font-bold text-[#0B1C39] mb-16"
       >
-        <h2 className="text-4xl font-bold text-blue-700 mb-6">About PrintPress</h2>
-        <p className="text-gray-700 leading-relaxed mb-4">
-          With over a decade of experience, PrintPress has transformed creative ideas into stunning
-          printed realities. From business branding to event marketing, we ensure precision,
-          quality, and innovation in every print.
-        </p>
-        <p className="text-gray-700 leading-relaxed">
-          Our mission is simple — to merge **creativity and technology** to deliver exceptional
-          printing solutions that elevate your brand presence and storytelling.
-        </p>
-      </motion.div>
+        Our Journey
+      </motion.h2>
 
-      {/* Right - Slideshow */}
-      <motion.div
-        className="flex-1 relative w-full max-w-md mx-auto overflow-hidden rounded-2xl shadow-lg"
-        initial={{ opacity: 0, x: 80 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <AnimatePresence>
-          <motion.img
-            key={slides[current].img}
-            src={slides[current].img}
-            alt="About us slideshow"
-            className="w-full h-80 object-cover rounded-2xl"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.8 }}
-          />
-        </AnimatePresence>
-        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-center py-3 text-sm font-medium backdrop-blur-md">
-          {slides[current].caption}
-        </div>
+      {/* Timeline */}
+      <div className="relative max-w-5xl mx-auto border-l-4 border-[#0B1C39]/20 pl-6 space-y-12">
+        {milestones.map((milestone, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative bg-white shadow-lg rounded-xl p-6 md:p-8 border border-gray-200"
+          >
+            <div className="absolute -left-5 top-6 w-8 h-8 rounded-full bg-[#0B1C39] border-4 border-white shadow-md"></div>
+            <h3 className="text-xl font-bold text-[#0B1C39]">{milestone.year}</h3>
+            <h4 className="text-lg font-semibold text-gray-700 mt-2">
+              {milestone.title}
+            </h4>
+            <p className="text-gray-600 mt-3 leading-relaxed">
+              {milestone.description}
+            </p>
+          </motion.div>
+        ))}
+      </div>
 
-        {/* Dots */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`w-3 h-3 rounded-full ${
-                i === current ? "bg-blue-500" : "bg-white/60"
-              } transition-all duration-300`}
-            />
-          ))}
-        </div>
-      </motion.div>
-    </AnimatedSection>
+      {/* Stats Section */}
+      <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+        {stats.map((stat, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            className="bg-white p-6 rounded-xl shadow-md border border-gray-200"
+          >
+            <h3 className="text-3xl font-bold text-[#0B1C39] mb-2">
+              <CountUp end={stat.number} duration={2} />{stat.suffix}
+            </h3>
+            <p className="text-gray-600 font-medium">{stat.label}</p>
+          </motion.div>
+        ))}
+      </div>
+    </section>
   );
 };
 

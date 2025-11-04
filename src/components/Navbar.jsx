@@ -1,115 +1,73 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User } from "lucide-react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navLinks = ["Solutions", "Resources", "Institutional", "Deals"];
+  const navLinks = ["Home", "Services", "About", "Contact"];
 
   return (
-    <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed w-full top-0 left-0 z-50 flex justify-center transition-all duration-500 ${
-        scrolled ? "shadow-lg" : ""
-      }`}
-      style={{
-        background: "transparent", // ensures no semi-transparent overlay
-      }}
-    >
-      <div
-        className="max-w-7xl w-[90%] mx-auto mt-4 flex items-center justify-between rounded-full px-6 py-3 
-                   shadow-md border border-gray-200 transition-all duration-300 bg-white"
-      >
-        {/* Left: Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="w-6 h-6 rounded-md bg-yellow-400" />
-          <h1 className="text-xl font-bold text-gray-800 tracking-wide">
-            PrintPress
-          </h1>
-        </div>
+    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center items-center py-3">
+      <div className="backdrop-blur-md bg-white/90 rounded-full shadow-md px-8 py-2 flex justify-between items-center w-[90%] md:w-[70%]">
+        <h1 className="text-2xl font-bold text-[#1E3A8A] tracking-wide">
+          Print<span className="text-[#D4AF37]">Press</span>
+        </h1>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center space-x-8 font-medium text-gray-700">
-          {navLinks.map((item, index) => (
-            <motion.li
-              key={index}
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="cursor-pointer hover:text-yellow-500"
-            >
-              {item}
-            </motion.li>
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-8 text-[#1F2937] font-medium">
+          {navLinks.map((link) => (
+            <li key={link}>
+              <a
+                href={`#${link.toLowerCase()}`}
+                className="hover:text-[#1E3A8A] transition-colors"
+              >
+                {link}
+              </a>
+            </li>
           ))}
         </ul>
 
-        {/* Right: Buttons */}
-        <div className="hidden md:flex items-center space-x-6">
-          <button className="flex items-center gap-2 text-gray-700 hover:text-yellow-500 transition">
-            <User size={18} />
-            <span>Sign in</span>
-          </button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="bg-yellow-400 text-gray-900 px-5 py-2 rounded-full font-semibold shadow-md hover:bg-yellow-300 transition"
-          >
-            Get started →
-          </motion.button>
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-800 focus:outline-none"
-          >
-            {isOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setOpen(true)}
+          className="md:hidden text-[#1E3A8A] text-2xl"
+        >
+          <FiMenu />
+        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Sidebar */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
             transition={{ duration: 0.3 }}
-            className="absolute top-20 w-full bg-white rounded-b-2xl md:hidden shadow-md border border-gray-200"
+            className="fixed inset-0 bg-[#0F172A] text-white flex flex-col justify-center items-center space-y-8 text-xl"
           >
-            <ul className="flex flex-col items-center gap-6 py-6 text-gray-700 font-medium">
-              {navLinks.map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => setIsOpen(false)}
-                  className="hover:text-yellow-500 cursor-pointer"
-                >
-                  {item}
-                </li>
-              ))}
-              <hr className="w-3/4 border-gray-200" />
-              <button className="flex items-center gap-2 text-gray-700 hover:text-yellow-500">
-                <User size={18} />
-                <span>Sign in</span>
-              </button>
-              <button className="bg-yellow-400 text-gray-900 px-5 py-2 rounded-full font-semibold shadow-md hover:bg-yellow-300 transition">
-                Get started →
-              </button>
-            </ul>
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-6 right-6 bg-white text-[#0F172A] rounded-full p-2 text-2xl"
+            >
+              <FiX />
+            </button>
+
+            {navLinks.map((link) => (
+              <a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                onClick={() => setOpen(false)}
+                className="hover:text-[#D4AF37] transition-all"
+              >
+                {link}
+              </a>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 };
 

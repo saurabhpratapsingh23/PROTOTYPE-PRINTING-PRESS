@@ -1,92 +1,84 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaTwitter, FaEnvelope, FaPhone } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 text-white py-12">
-      {/* Subtle animated gradient shimmer */}
+    <footer className="relative overflow-hidden bg-[#0B1C39] text-white py-14 px-6">
+      {/* Animated Wave Background */}
       <motion.div
-        className="absolute inset-0 opacity-30"
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        style={{
-          backgroundImage:
-            "linear-gradient(270deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))",
-          backgroundSize: "400% 400%",
-        }}
+        className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#0B1C39] via-[#13224D] to-[#1E2A56] opacity-90"
+        animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       ></motion.div>
 
-      {/* Footer content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto text-center space-y-10">
+        {/* Brand Name */}
         <motion.h2
-          className="text-3xl font-bold mb-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold tracking-wide text-white"
         >
-          Contact Us
+          Print<span className="text-blue-400">Press</span>
         </motion.h2>
+        <p className="text-gray-300 max-w-md mx-auto leading-relaxed">
+          Premium printing solutions crafted with creativity, precision, and care.
+        </p>
 
-        <motion.p
-          className="max-w-2xl mx-auto text-gray-300 mb-6"
+        {/* Links & Contact Info */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-300 mt-10">
+          <div>
+            <h4 className="font-semibold text-lg mb-3 text-white">Quick Links</h4>
+            <ul className="space-y-2">
+              <li><a href="#services" className="hover:text-blue-400 transition">Services</a></li>
+              <li><a href="#portfolio" className="hover:text-blue-400 transition">Portfolio</a></li>
+              <li><a href="#about" className="hover:text-blue-400 transition">About Us</a></li>
+              <li><a href="#contact" className="hover:text-blue-400 transition">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-lg mb-3 text-white">Contact</h4>
+            <ul className="space-y-2">
+              <li className="flex justify-center md:justify-start items-center gap-2">
+                <FaPhone className="text-blue-400" /> +91 98765 43210
+              </li>
+              <li className="flex justify-center md:justify-start items-center gap-2">
+                <FaEnvelope className="text-blue-400" /> info@printpress.com
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-lg mb-3 text-white">Follow Us</h4>
+            <div className="flex justify-center md:justify-start space-x-4">
+              {[FaFacebookF, FaInstagram, FaTwitter].map((Icon, i) => (
+                <motion.a
+                  key={i}
+                  href="#"
+                  whileHover={{ scale: 1.2, rotate: 10 }}
+                  className="p-3 bg-white/10 rounded-full hover:bg-blue-500 transition"
+                >
+                  <Icon />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          Call us at <span className="font-semibold text-white">+91 98765 43210</span> or
-          email us at
-          <span className="font-semibold text-white"> info@printpress.com</span>
-        </motion.p>
-
-        {/* Contact details with icons */}
-        <motion.div
-          className="flex flex-col sm:flex-row justify-center gap-8 text-gray-300 mb-10"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-center justify-center gap-2">
-            <Phone className="text-blue-300" />
-            <span>+91 98765 43210</span>
-          </div>
-          <div className="flex items-center justify-center gap-2">
-            <Mail className="text-blue-300" />
-            <span>info@printpress.com</span>
-          </div>
-          <div className="flex items-center justify-center gap-2">
-            <MapPin className="text-blue-300" />
-            <span>Walchand Nagar, Maharashtra</span>
-          </div>
-        </motion.div>
-
-        {/* Divider Line */}
-        <motion.div
-          className="h-[1px] bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 mb-6 mx-auto w-3/4"
-          initial={{ opacity: 0, width: "0%" }}
-          whileInView={{ opacity: 1, width: "75%" }}
-          transition={{ duration: 1 }}
+          className="w-3/4 mx-auto h-px bg-gray-600 mt-10"
         ></motion.div>
 
-        {/* Footer bottom text */}
-        <motion.p
-          className="text-gray-400 text-sm"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          © {new Date().getFullYear()} PrintPress | All rights reserved.
-        </motion.p>
+        {/* Copyright */}
+        <p className="text-gray-400 text-sm mt-6">
+          © {new Date().getFullYear()} PrintPress. All rights reserved.
+        </p>
       </div>
-
-      {/* Animated gradient glow at the bottom */}
-      <motion.div
-        className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500"
-        animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        style={{ backgroundSize: "200% 200%" }}
-      />
     </footer>
   );
 };
