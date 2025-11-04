@@ -40,34 +40,46 @@ const FAQ = () => {
   return (
     <section
       id="faq"
-      className="py-20 px-6 bg-gradient-to-b from-[#f8f9fb] to-[#eceef3] text-center"
+      className="relative py-24 px-6 md:px-12 bg-gradient-to-b from-[#0B0C10] via-[#1C1C1E] to-[#0B0C10] text-[#EDEDED]"
     >
+      {/* Soft gold spotlight */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08)_0%,transparent_70%)] pointer-events-none" />
+
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-bold text-[#0B1C39] mb-10"
+        className="text-4xl font-bold text-[#D4AF37] text-center mb-16"
       >
         Frequently Asked Questions
       </motion.h2>
 
-      <div className="max-w-3xl mx-auto text-left space-y-4">
+      <div className="max-w-3xl mx-auto text-left space-y-6 relative z-10">
         {faqs.map((faq, index) => (
           <motion.div
             key={index}
-            className="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 cursor-pointer"
-            whileHover={{ scale: 1.02 }}
             onClick={() => toggleFAQ(index)}
+            whileHover={{ scale: 1.02 }}
+            className={`p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+              activeIndex === index
+                ? "border-[#D4AF37]/70 bg-[#1C1C1E]/80 shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                : "border-[#D4AF37]/20 bg-[#111111]/70"
+            }`}
           >
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold text-[#0B1C39]">
+              <h3
+                className={`text-lg font-semibold ${
+                  activeIndex === index ? "text-[#D4AF37]" : "text-[#EDEDED]"
+                }`}
+              >
                 {faq.question}
               </h3>
               <motion.div
                 animate={{ rotate: activeIndex === index ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
+                className="text-[#D4AF37]"
               >
-                <FaChevronDown className="text-gray-500" />
+                <FaChevronDown />
               </motion.div>
             </div>
 
@@ -78,7 +90,7 @@ const FAQ = () => {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="text-gray-600 mt-3"
+                  className="text-[#C7C7C7] mt-4 leading-relaxed"
                 >
                   {faq.answer}
                 </motion.p>

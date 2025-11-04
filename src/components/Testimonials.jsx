@@ -21,15 +21,22 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section
-      id="testimonials"
-      className="py-24 px-6 bg-gradient-to-b from-[#F9FAFB] to-[#F3F4F6] text-gray-800"
-    >
-      <h2 className="text-4xl font-extrabold text-center text-indigo-900 mb-16">
-        Client Stories
-      </h2>
+    <section className="relative py-24 px-6 bg-gradient-to-b from-[#0F0F10] to-[#1C1C1E] text-gray-100 overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15),transparent_70%)] pointer-events-none"></div>
 
-      <div className="max-w-6xl mx-auto space-y-24">
+      {/* Heading */}
+      <motion.h2
+        className="text-4xl md:text-5xl font-extrabold text-center text-[#D4AF37] mb-16 tracking-wide"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        Client Stories
+      </motion.h2>
+
+      {/* Testimonial Cards */}
+      <div className="max-w-6xl mx-auto space-y-20 relative z-10">
         {testimonials.map((t, i) => (
           <motion.div
             key={i}
@@ -41,23 +48,27 @@ const Testimonials = () => {
             transition={{ duration: 0.8, delay: i * 0.2 }}
             viewport={{ once: true }}
           >
-            {/* Text section */}
+            {/* Text Section */}
             <div className="flex-1 text-center md:text-left">
-              <FaQuoteLeft className="text-indigo-500 text-4xl mb-4 mx-auto md:mx-0" />
-              <p className="text-lg italic text-gray-700 mb-4 leading-relaxed">
+              <FaQuoteLeft className="text-[#D4AF37] text-4xl mb-4 mx-auto md:mx-0 opacity-80" />
+              <p className="text-lg italic text-gray-300 mb-4 leading-relaxed">
                 “{t.text}”
               </p>
-              <h3 className="text-xl font-semibold text-gray-900">{t.name}</h3>
-              <p className="text-sm text-yellow-600">{t.role}</p>
+              <h3 className="text-xl font-semibold text-white">{t.name}</h3>
+              <p className="text-sm text-[#B38B2E]">{t.role}</p>
             </div>
 
-            {/* Image / placeholder section */}
+            {/* Glassmorphic Card */}
             <motion.div
-              className="flex-1 relative rounded-2xl overflow-hidden h-56 w-full shadow-lg bg-gradient-to-br from-indigo-50 via-white to-indigo-100"
-              whileHover={{ scale: 1.02 }}
+              className="flex-1 relative h-56 w-full rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(212,175,55,0.2)] overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-indigo-100/40 to-transparent" />
-              <div className="absolute bottom-3 right-4 bg-yellow-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+              {/* Rating Badge */}
+              <div className="absolute bottom-4 right-4 bg-[#D4AF37] text-black text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
                 ★ 5.0
               </div>
             </motion.div>

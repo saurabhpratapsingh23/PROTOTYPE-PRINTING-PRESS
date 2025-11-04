@@ -1,28 +1,41 @@
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import About from "./components/About";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Portfolio from "./components/Portfolio"
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
+import Portfolio from "./pages/Portfolio";
+import FAQ from "./pages/FAQ";
 import Process from "./components/Process";
 import Testimonials from "./components/Testimonials";
-import FAQ from "./components/FAQ";
 
 const App = () => {
   return (
-    <div className="bg-[#F9FAFB] text-[#1F2937] min-h-screen overflow-x-hidden">
+    <div className="bg-[#0F172A] text-gray-100 min-h-screen">
       <Navbar />
-      <main className="pt-20 space-y-28">
-        <Hero />
-        <Portfolio />
-        <Services />
-        <Process />
-        <Testimonials />
-        <About />
-        <FAQ />
-        <Contact />
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/process" element={<Process />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route
+            path="*"
+            element={
+              <div className="text-center mt-20 text-red-400 text-2xl">
+                404 - Page Not Found
+              </div>
+            }
+          />
+        </Routes>
       </main>
+
       <Footer />
     </div>
   );
